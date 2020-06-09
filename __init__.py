@@ -5,11 +5,12 @@ import json
 from flask import Flask, render_template, session, request
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
 
 @app.route("/")
 def index():
     return "hello"
-    
+
 @app.route("/vocab", methods=['GET', 'POST'])
 def vocab():
     vocab_txt = requests.get("https://raw.githubusercontent.com/abhilb/Notes/master/vocab.json").text
