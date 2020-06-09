@@ -1,1 +1,1 @@
-web: gunicorn vocab_app:app
+web: gunicorn vocabs:app
