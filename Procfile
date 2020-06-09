@@ -1,1 +1,1 @@
-web: gunicorn vocabs:app
+web: gunicorn wsgi:app
