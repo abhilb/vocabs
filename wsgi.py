@@ -1,4 +1,4 @@
-from . import app
+from vocabs import app
 
 if __name__ == "__main__":
     app.run()
