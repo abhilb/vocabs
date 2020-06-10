@@ -18,9 +18,9 @@
 
         #question {
             background-color: #64b1b5;
-            height: 25%;
+            min-height: 10%;
             border-radius: 15pt;
-            margin: 5pt;
+            margin: 0pt;
             padding: 10pt;
             display: flex;
             align-items: center;
@@ -28,10 +28,19 @@
         }
 
         #answer {
-            height: 70%;
+            min-height: 70%;
             background-color: #cacaca;
             border-radius: 15pt;
-            margin: 5pt;
+            margin: 0pt;
+            padding: 10pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #btns {
+            min-height: 10%;
+            margin: 0pt;
             padding: 10pt;
             display: flex;
             align-items: center;
@@ -50,14 +59,6 @@
             min-height: 100%;
         }
 
-        #btns {
-            margin: 5pt;
-            padding: 10pt;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         button {
             font-family: "Source Sans Pro", sans-serif;
             font-weight: 900;
@@ -65,7 +66,7 @@
             font-size: 1rem;
             border-radius: 3.5rem / 100%;
             position: relative;
-            min-width: 15rem;
+            min-width: 12rem;
             max-width: 90vw;
             overflow: hidden;
             border: 0;
