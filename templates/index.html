@@ -59,7 +59,7 @@
             min-height: 100%;
         }
 
-        button {
+        .btn {
             font-family: "Source Sans Pro", sans-serif;
             font-weight: 900;
             padding: 1.25rem 2rem;
@@ -84,11 +84,17 @@
             <p>{{ data["question"] }}</p>
         </div>
         <div id="answer">
-            <p>{{ data["answer"] }}</p>
+            <p>
+                {% for item in data["answer"] %}
+                {{ item }}<br>
+                {% endfor %}
+            </p>
         </div>
         <div id="btns">
-            <button id="show_btn">SHOW</button>
-            <button>NEXT</button>
+            <button id="show_btn" class="btn">SHOW</button>
+            <form action="" method="post">
+                <input type="submit" name="next" value="NEXT" class="btn"/>
+            </form>
         </div>
     </div>
 </body>

@@ -15,7 +15,7 @@ def index():
     idx = random.randint(0, count)
     data = {}
     data['question'] = list(vocab.keys())[idx]
-    data['answer'] = list(vocab.values())[idx][0]
+    data['answer'] = list(vocab.values())[idx]
     if request.method == 'POST':
         return render_template("index.html", data=data)
     else:
