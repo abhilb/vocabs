@@ -9,62 +9,88 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='main.js') }}"></script>
     <style type="text/css">
-        #main {
+        html,
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .container {
+            padding: 0px;
+            background-color: transparent;
             height: 100%;
             min-height: 100%;
-            width: 100%;
-            position: relative;
-        }
-
-        #question {
-            background-color: #64b1b5;
-            min-height: 10%;
-            height: 10%;
-            border-radius: 15pt;
-            margin: 0pt;
-            padding: 2pt;
+            width: 100%;         
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: center 
         }
 
-        #answer {
-            min-height: 70%;
+        .flip-card {
+            width: 100%;
             height: 70%;
-            background-color: #cacaca;
-            border-radius: 15pt;
-            margin: 0pt;
-            padding: 2pt;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            text-align: center;
+            background-color: transparent;
+            border: 1px solid #f1f1f1;
+            perspective: 1000px;
         }
 
-        #btns {
-            min-height: 10%;
-            height: 10%;
-            margin: 0pt;
-            padding: 2.5pt;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        @media screen and (orientation: landscape) {
+            .flip-card {
+                width: 50%;
+            }
         }
 
-        p {
-            font-size: 20px;
-            font-family: "Verdana";
+        .flip-card:hover {
+            box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.2);
         }
 
-        body,
-        html {
-            height: 100%;
+        .flip-card-inner {
+            position: relative;
             width: 100%;
-            min-height: 100%;
-            margin: 0pt;
-            padding: 0pt;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
         }
 
+        /* Position the front and back side */
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            /* Safari */
+            backface-visibility: hidden;            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center 
+        }
 
+        /* Style the front side (fallback if image is missing) */
+        .flip-card-front {
+            background-color: #64b1b5;
+            color: white;
+        }
+
+        /* Style the back side */
+        .flip-card-back {
+            background-color: #ffffff;
+            color: black;
+            transform: rotateY(180deg);
+        }
+
+        .btn_div {
+            margin: 10px;
+            text-align: center;
+        }
 
         .btn {
             font-family: "Source Sans Pro", sans-serif;
@@ -82,26 +108,48 @@
             letter-spacing: 0.05em;
             margin: 0.5em;
         }
+
+        .btn:hover {
+            background-color: aquamarine;
+        }
+
+        .question {            
+            text-align: center;
+            font-family: "Verdana";
+            font-weight: 900;
+            font-size: 2rem;
+        }
+
+        .answer {
+            font-family: "Verdana";
+            font-weight: 900;
+            font-size: 1rem;
+        }
     </style>
 </head>
 
 <body>
-    <div id="main">
-        <div id="question">
-            <p>{{ data["question"] }}</p>
+    <div class="container">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <p class="question">{{ data["question"] }}</p>
+                </div>
+                <div class="flip-card-back">
+                    <p class="question">{{ data["question"] }}</p>
+                    <hr>
+                    <p class="answer">
+                        {% for item in data["answer"] %}
+                        {{ item }}<br>
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
         </div>
-        <div id="answer">
-            <p>
-                {% for item in data["answer"] %}
-                {{ item }}<br>
-                {% endfor %}
-            </p>
-        </div>
-        <div id="btns">
-            <button id="show_btn" class="btn">SHOW</button>
-            <form action="" method="post" id="form_btn">
-                <input type="submit" name="next" value="NEXT" class="btn" />
-            </form>
+        <div class="btn_div">
+          <form action="" method="post" id="form_btn">
+                    <input type="submit" name="next" value="NEXT" class="btn" />
+                </form>
         </div>
     </div>
 </body>
