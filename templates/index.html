@@ -123,7 +123,18 @@
         .answer {
             font-family: "Verdana";
             font-weight: 900;
-            font-size: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .example {
+            font-family: "Verdana";
+            font-weight: 600;
+            font-size: 0.75rem;
+            font-style: italic;
+        }
+
+        .example span {
+            color: cornflowerblue;
         }
     </style>
 </head>
@@ -138,9 +149,11 @@
                 <div class="flip-card-back">
                     <p class="question">{{ data["question"] }}</p>
                     <hr>
-                    <p class="answer">
-                        {% for item in data["answer"] %}
-                        {{ item }}<br>
+                    <p class="answer">{{ data["answer"]["meaning"] }}</p>
+                    <p class="example">
+                        {% for item in data["answer"]["examples"] %}
+                        {{ item["de"] }}
+                        <span>{{ item["en"]}}</span><br>
                         {% endfor %}
                     </p>
                 </div>

@@ -3,9 +3,11 @@ import requests
 import random
 import json
 from flask import Flask, render_template, session, request
+import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
+LAST_UPDATE = 'last_update'
 
 def get_next():
     vocab_txt = requests.get("https://raw.githubusercontent.com/abhilb/Notes/master/vocab.json").text
@@ -24,8 +26,6 @@ def get_next():
     return data
 
 @app.route("/", methods=['GET', 'POST'])
-def index():    
+def index():
     return render_template("index.html", data=get_next())
     
-
-
