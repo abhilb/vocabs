@@ -10,22 +10,41 @@ app.config['SECRET_KEY'] = 'secret!'
 LAST_UPDATE = 'last_update'
 
 def get_next():
-    vocab_txt = requests.get("https://raw.githubusercontent.com/abhilb/Notes/master/vocab.json").text
-    vocab = json.loads(vocab_txt)
-    count = len(vocab)
-    idx = random.randint(0, count)
-    data = {}
-    while True:
-        try:
-            data['question'] = list(vocab.keys())[idx]
-            data['answer'] = list(vocab.values())[idx]
-        except IndexError:
+    vocab_txt = requests.get("https://raw.githubusercontent.com/abhilb/Notes/master/deutsch_vocabulary.md").text
+    vocabs = {}
+    count = 0
+
+    for line in vocab_txt.split('\n'):
+        if line.startswith('#'):
             continue
-        else:
-            break
-    return data
+        if not line:
+            continue
+        
+        word, details = line.split(';')
+        word = word.strip("* ")
+        meaning, *examples = details.split('<br>')
+        meaning = meaning.strip()
+
+        example_arr = []
+        for example in examples:
+            de, *en = example.split('.')
+            de = de.strip()
+            if en: 
+                en = en[0].strip('( )')
+            example_arr.append({'de' : de, 'en' : en})
+        word_info = {}
+        word_info['meaning'] = meaning
+        word_info['examples'] = example_arr
+        count = count + 1
+        vocabs[word] = word_info
+
+    return vocabs
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
     return render_template("index.html", data=get_next())
     
+
+@app.route("/einburgertest")
+def einburgertest():
+    return render_template("index.html", data=get_next())
