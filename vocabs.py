@@ -9,8 +9,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 LAST_UPDATE = 'last_update'
 
-def get_next():
-    vocab_txt = requests.get("https://raw.githubusercontent.com/abhilb/Notes/master/deutsch_vocabulary.md").text
+def get_vocabs():
+    vocab_txt = requests.get("https://raw.githubusercontent.com/abhilb/Notes/master/deutsch_vocabulary.md").text    
     vocabs = {}
     count = 0
 
@@ -39,6 +39,23 @@ def get_next():
         vocabs[word] = word_info
 
     return vocabs
+
+def get_next():
+    vocab = get_vocabs()
+    count = len(vocab)
+    idx = random.randint(0, count)
+    data = {}
+    while True:
+        try:
+            data['question'] = list(vocab.keys())[idx]
+            data['answer'] = list(vocab.values())[idx]
+        except IndexError:
+            continue
+        else:
+            break
+    return data
+
+
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
