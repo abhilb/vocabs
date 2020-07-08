@@ -19,9 +19,12 @@ def get_vocabs():
             continue
         if not line:
             continue
-        
-        word, details = line.split(';')
+        if ";" not in line:
+            continue
+            
+        word, *details = line.split(';')
         word = word.strip("* ")
+        details = ''.join(details)
         meaning, *examples = details.split('<br>')
         meaning = meaning.strip()
 
